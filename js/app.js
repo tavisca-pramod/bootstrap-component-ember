@@ -10,7 +10,7 @@ App.IndexRoute = Ember.Route.extend({
 
 	model : function(){
 
-		return { max : 100, step :1, position : 0 };
+		return { max : 100, step : 1, position : 0 };
 	}
 });
 
@@ -27,7 +27,7 @@ App.IndexView = Ember.View.extend({
 	}
 });
 
-App.IndexController = Ember.Controller.extend({
+App.IndexController = Ember.ObjectController.extend({
 
 	actions: {
 

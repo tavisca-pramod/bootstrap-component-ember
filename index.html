@@ -8,8 +8,8 @@
 <body>	
 	
 	<p> exploring bootstrap component and its hooks available</p>
-	
-	<script type="text/x-handlerbars" id="index">
+
+	<script type="text/x-handlebars" id="index">
 
 	<section id="app">
 	
@@ -18,13 +18,13 @@
 	
 		<div class="container">
 			<label>Maximum</label>
-			{{input type="text" class="input-mini" value = max }}
+			{{input type="text" value=max  class="input-mini"}}
 	
 			<label>Step</label>
-			{{input type="text" class="input-mini" value= step }}
+			{{input type="text"  value=step class="input-mini" }}
 	
 			<label>Position</label>
-			{{input type="text" class="input-mini" value= position }}
+			{{input type="text" value=position  class="input-mini" }}
 
 			<div>
 				{{input type="button" class="btn btn-primary" value="Step" action = "moveByStep" }}
