@@ -46,12 +46,7 @@ App.IndexController = Ember.ObjectController.extend({
 		},
 
 		runProgressBar : function(){
-			var i = 0;
-			while ( i < 100 ) {
-    			// This block will be executed 100 times.
-    			console.log( "Currently at " + i );
-			    i++; // Increment i
-			}
+			// perform an loop operation to run the progress bar to max value
 		}
 	}
 });
