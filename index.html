@@ -24,12 +24,13 @@
 			{{input type="text"  value=step class="input-mini" }}
 	
 			<label>Position</label>
-			{{input type="text" value=position  class="input-mini" }}
+			{{input type="text" value=position  class="input-mini"}}
 
 			<div>
-				{{input type="button" class="btn btn-primary" value="Step" action = "moveByStep" }}
-				{{input type="button" class="btn btn-primary" value="Reset" action = "resetProgessBar" }}
-				{{input type="button" class="btn btn-primary" value="Run" action = "runProgressBar"}}
+				<label > {{currentProgresPosition}} </label>
+				<button class="btn btn-primary" {{action 'moveByStep' }}>Step</button>
+				<button class="btn btn-primary" {{action 'resetProgessBar'}}>Reset</button>
+				<button class="btn btn-primary" {{action 'runProgressBar'}}>Run</button>
 			</div>
 		</div>			
 	</section>

@@ -7,10 +7,8 @@ App.Router.map(function() {
 });
 
 App.IndexRoute = Ember.Route.extend({
-
 	model : function(){
-
-		return { max : 100, step : 1, position : 0 };
+		return { max : 100, step : 1, position : 10, currentProgresPosition : 0};
 	}
 });
 
@@ -23,24 +21,37 @@ App.IndexView = Ember.View.extend({
 		    dangerMarker: 80,
     		maximum: 100,
     		step: 5
-		});
-	}
+		});	
+	},
+
+	onPositionChanged : function() {
+		$('#progressbar').progressbar('setPosition',position);
+  		}.observes('indexcontroller.model.position'),
+
+  		$('#progressbar').bind( 'positionChanged', function(positionValue, percentValue){
+  				currentProgresPosition = positionValue;
+  		 } );
+	
 });
 
 App.IndexController = Ember.ObjectController.extend({
 
 	actions: {
-
 		moveByStep : function(){
-		// need to move the progress bar position by step value set as input
+			$('#progressbar').progressbar('stepIt');
 		},
 
 		resetProgessBar : function(){
-			// need to reset the progress bar position to '0'
+			$('#progressbar').progressbar('reset');
 		},
 
 		runProgressBar : function(){
-			//need to start the progress bar using interval or till the max position value specified in the input
+			var i = 0;
+			while ( i < 100 ) {
+    			// This block will be executed 100 times.
+    			console.log( "Currently at " + i );
+			    i++; // Increment i
+			}
 		}
 	}
 });
