@@ -126,7 +126,8 @@
 				options = typeof option == 'object' && option;
 
 			if (!data) {
-				$this.data('progressbar', new ProgressBar(this, $.extend({}, $.fn.progressbar().defaults, options)));
+				$this.data('progressbar', new ProgressBar(this, $.extend({}, 
+					$.fn.progressbar().defaults, options)));
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
 				data[option].apply(data, args);
@@ -145,10 +146,11 @@
 
 	var DRPGlobal = {};
 
-	DRPGlobal.template = '<div class="progress">' +
-						 '<div class="bar bar-success progress-bar progress-bar-success" style="width: 0%;"></div>' +
-						 '<div class="bar bar-warning progress-bar progress-bar-warning" style="width: 0%;"></div>' +
-						 '<div class="bar bar-danger progress-bar progress-bar-danger" style="width: 0%;"></div>' +
-						 '</div>';
+	DRPGlobal.template = 
+	'<div class="progress">' +
+	'<div class="bar bar-success progress-bar progress-bar-success" style="width: 40%;"></div>' +
+	'<div class="bar bar-warning progress-bar progress-bar-warning" style="width: 10%;"></div>' +
+	'<div class="bar bar-danger progress-bar progress-bar-danger" style="width: 10%;"></div>' +
+	'</div>';
 
 } (window.jQuery);

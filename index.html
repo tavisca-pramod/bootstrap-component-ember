@@ -10,10 +10,32 @@
 
 <body>
 	<p> exploring bootstrap component and its hooks available</p>
+	
 	<div id="progressbar">
 	</div>
+<div class="container">
+	<label>Maximum</label>
+	<input type="text" class="input-mini">
+	
+	<label>Step</label>
+	<input type="text" class="input-mini">
+	
+	<label>Position</label>
+	<input type="text" class="input-mini">
+
+	<div>
+		<input type="button" class="btn btn-primary" value="Step" >
+		<input type="button" class="btn btn-primary" value="Reset">
+		<input type="button" class="btn btn-primary" value="Start Timer">
+	</div>
+</div>
 	<script type="text/javascript">
-		$('#progressbar').progressbar();
+		$('#progressbar').progressbar({
+			warningMarker: 60,
+		    dangerMarker: 80,
+    		maximum: 100,
+    		step: 5
+		});
 	</script>
 </body>
 
