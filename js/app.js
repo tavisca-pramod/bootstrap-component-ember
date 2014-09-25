@@ -32,12 +32,20 @@ App.IndexView = Ember.View.extend({
 	}
 });
 
+// needs to be handled to stop the progress bar
+var timerId;
+
 App.IndexController = Ember.ObjectController.extend({
 	
+
 	start : function ()
 		{
 			if (this.get('currentProgresPosition') < this.get('max')){
        			$('#progressbar').progressbar('stepIt');
+			}
+			else
+			{
+				clearTimeout(timerId);
 			}
 		},
 	
@@ -51,16 +59,16 @@ App.IndexController = Ember.ObjectController.extend({
 		},
 
 		runProgressBar : function(){	
-			timerId = window.setInterval(this.start.bind(this),100);		
+			timerId = window.setInterval(this.start.bind(this),100);	
+
     	}	
 	},
 
-	
 
 	postionChanged : function()
 		{
 			$('#progressbar').progressbar('setPosition',this.get('currentProgresPosition') );
-		}.observes('controller.postion')
+		}.observes('postion')
 
 
 });
