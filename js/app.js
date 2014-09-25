@@ -8,7 +8,7 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
 	model : function(){
-		return { max : 100, step : 1, position : 10, currentProgresPosition : 0};
+		return { max : 100, step : 1, position : 0, currentProgresPosition : 0};
 	}
 });
 
@@ -18,7 +18,9 @@ App.IndexView = Ember.View.extend({
 
 		$('#progressbar').progressbar({
 			warningMarker: 60,
-		    dangerMarker: 80   		
+		    dangerMarker: 80,
+		    maximum: 100,
+		    step: 1
 		});	
 
 		setCurrentPogressBarPosition = function (e)
@@ -27,11 +29,13 @@ App.IndexView = Ember.View.extend({
 		}
 
 		$('#progressbar').on("positionChanged", setCurrentPogressBarPosition.bind(this));		
-	}
-});
+	},
 
-// needs to be handled to stop the progress bar
-var timerId;
+	postionChanged : function()
+	{
+		$('#progressbar').progressbar('setPosition',this.get('controller.position'));
+	}.observes('controller.position')
+});
 
 App.IndexController = Ember.ObjectController.extend({	
 
@@ -64,10 +68,5 @@ App.IndexController = Ember.ObjectController.extend({
 
 			timerId = window.setInterval(this.start.bind(this),100);
 		}	
-	},
-
-	postionChanged : function()
-		{
-			$('#progressbar').progressbar('setPosition',this.get('currentProgresPosition') );
-		}.observes('this.postion')
+	}
 });
