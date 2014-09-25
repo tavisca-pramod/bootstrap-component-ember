@@ -13,14 +13,14 @@ App.IndexRoute = Ember.Route.extend({
 });
 
 App.IndexView = Ember.View.extend({
-
+ 
 	didInsertElement : function(){
 
 		$('#progressbar').progressbar({
 			warningMarker: 60,
 		    dangerMarker: 80,
     		maximum: 100,
-    		step: 5
+    		step: 1
 		});	
 
 		setCurrentPogressBarPosition = function (e)
@@ -28,16 +28,19 @@ App.IndexView = Ember.View.extend({
 			this.set('controller.currentProgresPosition',  e.position);
 		}
 
-		$('#progressbar').on("positionChanged", setCurrentPogressBarPosition.bind(this));
-
-		
-	}	
-
-
+		$('#progressbar').on("positionChanged", setCurrentPogressBarPosition.bind(this));		
+	}
 });
 
 App.IndexController = Ember.ObjectController.extend({
-
+	
+	start : function ()
+		{
+			if (this.get('currentProgresPosition') < this.get('max')){
+       			$('#progressbar').progressbar('stepIt');
+			}
+		},
+	
 	actions: {
 		moveByStep : function(){
 			$('#progressbar').progressbar('stepIt');
@@ -47,12 +50,17 @@ App.IndexController = Ember.ObjectController.extend({
 			$('#progressbar').progressbar('reset');
 		},
 
-		runProgressBar : function(){
-				
-				while(this.get('currentProgresPosition') <= this.get('max'))
-				{
-					$('#progressbar').progressbar('stepIt');					
-				}
-		}
-	}
+		runProgressBar : function(){	
+			timerId = window.setInterval(this.start.bind(this),100);		
+    	}	
+	},
+
+	
+
+	postionChanged : function()
+		{
+			$('#progressbar').progressbar('setPosition',this.get('currentProgresPosition') );
+		}.observes('controller.postion')
+
+
 });
