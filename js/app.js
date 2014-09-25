@@ -18,9 +18,7 @@ App.IndexView = Ember.View.extend({
 
 		$('#progressbar').progressbar({
 			warningMarker: 60,
-		    dangerMarker: 80,
-    		maximum: 100,
-    		step: 1
+		    dangerMarker: 80   		
 		});	
 
 		setCurrentPogressBarPosition = function (e)
@@ -35,13 +33,12 @@ App.IndexView = Ember.View.extend({
 // needs to be handled to stop the progress bar
 var timerId;
 
-App.IndexController = Ember.ObjectController.extend({
-	
+App.IndexController = Ember.ObjectController.extend({	
 
 	start : function ()
 		{
 			if (this.get('currentProgresPosition') < this.get('max')){
-       			$('#progressbar').progressbar('stepIt');
+				$('#progressbar').progressbar('stepIt');
 			}
 			else
 			{
@@ -51,6 +48,9 @@ App.IndexController = Ember.ObjectController.extend({
 	
 	actions: {
 		moveByStep : function(){
+			$('#progressbar').progressbar('setStep', this.get('step'));
+			$('#progressbar').progressbar('setMaximum', this.get('max'));
+			
 			$('#progressbar').progressbar('stepIt');
 		},
 
@@ -59,9 +59,11 @@ App.IndexController = Ember.ObjectController.extend({
 		},
 
 		runProgressBar : function(){	
-			timerId = window.setInterval(this.start.bind(this),100);	
+			$('#progressbar').progressbar('setStep', this.get('step'));
+			$('#progressbar').progressbar('setMaximum', this.get('max'));
 
-    	}	
+			timerId = window.setInterval(this.start.bind(this),100);
+		}	
 	},
 
 
@@ -69,6 +71,4 @@ App.IndexController = Ember.ObjectController.extend({
 		{
 			$('#progressbar').progressbar('setPosition',this.get('currentProgresPosition') );
 		}.observes('postion')
-
-
 });
