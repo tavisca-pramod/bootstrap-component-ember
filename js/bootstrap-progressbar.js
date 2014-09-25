@@ -139,7 +139,7 @@
 		warningMarker: 50,
 		dangerMarker: 90,
 		maximum: 100,
-		step: 1
+		step: 10
 	};
 
 	$.fn.progressbar.Constructor = ProgressBar;

@@ -22,16 +22,18 @@ App.IndexView = Ember.View.extend({
     		maximum: 100,
     		step: 5
 		});	
-	},
 
-	onPositionChanged : function() {
-		$('#progressbar').progressbar('setPosition',position);
-  		}.observes('indexcontroller.model.position'),
+		setCurrentPogressBarPosition = function (e)
+		{
+			this.set('controller.currentProgresPosition',  e.position);
+		}
 
-  		$('#progressbar').bind( 'positionChanged', function(positionValue, percentValue){
-  				currentProgresPosition = positionValue;
-  		 } );
-	
+		$('#progressbar').on("positionChanged", setCurrentPogressBarPosition.bind(this));
+
+		
+	}	
+
+
 });
 
 App.IndexController = Ember.ObjectController.extend({
@@ -46,7 +48,11 @@ App.IndexController = Ember.ObjectController.extend({
 		},
 
 		runProgressBar : function(){
-			// perform an loop operation to run the progress bar to max value
+				
+				while(this.get('currentProgresPosition') <= this.get('max'))
+				{
+					$('#progressbar').progressbar('stepIt');					
+				}
 		}
 	}
 });
