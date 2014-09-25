@@ -32,8 +32,14 @@ App.IndexView = Ember.View.extend({
 	},
 
 	postionChanged : function()
-	{
-		$('#progressbar').progressbar('setPosition',this.get('controller.position'));
+	{		
+		if(0 === this.get('controller.position').length)
+		{	
+			this.set('controller.position',0);
+		}
+
+		$('#progressbar').progressbar('setPosition',this.get('controller.position'));		
+			
 	}.observes('controller.position')
 });
 

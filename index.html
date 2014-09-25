@@ -18,13 +18,13 @@
 	
 		<div class="container">
 			<label>Maximum</label>
-			{{input type="text" value=max  class="input-mini"}}
+			{{input type="number" value=max  class="input-mini"}}
 	
 			<label>Step</label>
-			{{input type="text"  value=step class="input-mini" }}
+			{{input type="number"  value=step class="input-mini" }}
 	
 			<label>Position</label>
-			{{input type="text" value=position  class="input-mini"}}
+			{{input  type="number" min="0" max=max value=position  class="input-mini"}}
 
 			<div>
 				<label > {{currentProgresPosition}} </label>
