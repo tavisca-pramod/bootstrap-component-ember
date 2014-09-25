@@ -66,9 +66,8 @@ App.IndexController = Ember.ObjectController.extend({
 		}	
 	},
 
-
 	postionChanged : function()
 		{
 			$('#progressbar').progressbar('setPosition',this.get('currentProgresPosition') );
-		}.observes('postion')
+		}.observes('this.postion')
 });
