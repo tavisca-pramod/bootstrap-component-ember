@@ -13,9 +13,18 @@ App.IndexRoute = Ember.Route.extend({
 	 * postition to be set of progress bar]
 	 */
 	model : function(){
-		return { max : 100, step : 1, position : 0, currentProgresPosition : 0};
+		return { 
+			maximum : 100,
+			step : 1,
+			position : 0,
+			currentProgresPosition : 0,
+			percent: 0,
+			dangerMarker: 80,
+			warningMarker: 60
+		};
 	}
 });
+
 App.IndexView = Ember.View.extend({
  	
  	/**
@@ -25,10 +34,10 @@ App.IndexView = Ember.View.extend({
 	didInsertElement : function(){
 
 		$('#progressbar').progressbar({
-			warningMarker: 60,
-		    dangerMarker: 80,
-		    maximum: 100,
-		    step: 1
+			warningMarker: this.get('controller.warningMarker'),
+		    dangerMarker: this.get('controller.dangerMarker'),
+		    maximum: this.get('controller.maximum'),
+		    step: this.get('controller.step')
 		});	
 
 		/**
@@ -58,14 +67,85 @@ App.IndexView = Ember.View.extend({
 
 		$('#progressbar').progressbar('setPosition',this.get('controller.position'));		
 			
-	}.observes('controller.position')
+	}.observes('controller.position'),
+
+	maximumChanged : function()
+	{
+		/**
+	 	* checks whether the maximum value is not a number
+	 	*/
+		if(0 === this.get('controller.maximum').length)
+		{	
+			this.set('controller.maximum',0);
+		}
+
+		$('#progressbar').progressbar('setMaximum',this.get('controller.maximum'));		
+			
+	}.observes('controller.maximum'),
+
+	stepChanged : function()
+	{
+		/**
+	 	* checks whether the position value is not a number
+	 	*/
+		if(0 === this.get('controller.step').length)
+		{	
+			this.set('controller.step',0);
+		}
+
+		$('#progressbar').progressbar('setStep',this.get('controller.step'));		
+			
+	}.observes('controller.step'),	
+
+	percentChanged : function()
+	{
+		/**
+	 	* checks whether the percent value is not a number
+	 	*/
+		if(0 === this.get('controller.percent').length)
+		{	
+			this.set('controller.percent',0);
+		}
+
+		$('#progressbar').progressbar('setPercent',this.get('controller.percent'));		
+			
+	}.observes('controller.percent'),
+
+	dangerMarkerChanged : function()
+	{
+		/**
+	 	* checks whether the dangerMarker value is not a number
+	 	*/
+		if(0 === this.get('controller.dangerMarker').length)
+		{	
+			this.set('controller.dangerMarker',0);
+		}
+
+		$('#progressbar').progressbar('setDangerMarker',this.get('controller.dangerMarker'));		
+			
+	}.observes('controller.dangerMarker'),
+
+	warningMarkerChanged : function()
+	{
+		/**
+	 	* checks whether the warningMarker value is not a number
+	 	*/
+		if(0 === this.get('controller.warningMarker').length)
+		{	
+			this.set('controller.warningMarker',0);
+		}
+
+		$('#progressbar').progressbar('setWarningMarker',this.get('controller.warningMarker'));		
+			
+	}.observes('controller.warningMarker')		
+
 });
 
-App.IndexController = Ember.ObjectController.extend({	
+App.IndexController = Ember.ObjectController.extend({
 
 	start : function ()
 		{
-			if (this.get('currentProgresPosition') < this.get('max')){
+			if (this.get('currentProgresPosition') < this.get('maximum')){
 				$('#progressbar').progressbar('stepIt');
 			}
 			else
@@ -77,7 +157,7 @@ App.IndexController = Ember.ObjectController.extend({
 	actions: {
 		moveByStep : function(){
 			$('#progressbar').progressbar('setStep', this.get('step'));
-			$('#progressbar').progressbar('setMaximum', this.get('max'));
+			$('#progressbar').progressbar('setMaximum', this.get('maximum'));
 			
 			$('#progressbar').progressbar('stepIt');
 		},
@@ -88,7 +168,7 @@ App.IndexController = Ember.ObjectController.extend({
 
 		runProgressBar : function(){	
 			$('#progressbar').progressbar('setStep', this.get('step'));
-			$('#progressbar').progressbar('setMaximum', this.get('max'));
+			$('#progressbar').progressbar('setMaximum', this.get('maximum'));
 
 			timerId = window.setInterval(this.start.bind(this),100);
 		}	
